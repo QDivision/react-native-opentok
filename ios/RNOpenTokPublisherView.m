@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "RNOpenTokPublisherView.h"
 #import "RNOpenTokScreenSharingCapturer.h"
+#import "RNPublisherFactory.h"
+#import "RNOpentokPublisherConfiguration.h"
 
 #if __has_include(<React/RCTUtils.h>)
 #import <React/RCTUtils.h>
@@ -25,6 +27,7 @@
     OTPublisher* _publisher;
     RCTUIManager* _uiManager;
     NSDictionary* _screenCaptureSettings;
+    id<RNPublisherFactory> _publisherFactory;
 }
 
 @synthesize sessionId = _sessionId;
@@ -40,9 +43,11 @@
     [_publisher.view setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 }
 
-- (instancetype)initWithUIManager:(RCTUIManager*)uiManager {
+- (instancetype)initWithUIManager:(RCTUIManager*)uiManager
+                 publisherFactory:(id<RNPublisherFactory>)pubFactory {
     self = [super init];
     _uiManager = uiManager;
+    _publisherFactory = pubFactory;
     return self;
 }
 
@@ -118,35 +123,20 @@
 }
 
 - (void)startPublishing {
-    _publisher = [[OTPublisher alloc] initWithDelegate:self];
-    _publisher.publishAudio = !_mute;
-    _publisher.publishVideo = _video;
+    OTPublisherSettings * otPublisherSettings = [OTPublisherSettings alloc];
+    otPublisherSettings.audioTrack = !_mute;
+    otPublisherSettings.videoTrack = _video;
 
+    RNOpentokPublisherConfiguration * configuration =
+            [[RNOpentokPublisherConfiguration alloc] initWithPublisherDelegate:self
+                                                             publisherSettings:otPublisherSettings
+                                                               isScreenCapture:_screenCapture
+                                                                     uiManager:_uiManager
+                                                                      reactTag: RCTPresentedViewController().view.reactTag
+                                                         screenCaptureSettings:_screenCaptureSettings];
+
+    _publisher = [_publisherFactory fetchPublisher:configuration];
     [self updateVideoScale];
-
-    if (_screenCapture) {
-        UIView* rootView = RCTPresentedViewController().view;
-        UIView* screenCaptureView = [_uiManager viewForNativeID:@"RN_OPENTOK_SCREEN_CAPTURE_VIEW"
-                                                    withRootTag:rootView.reactTag];
-
-        if (screenCaptureView) {
-            RNOpenTokScreenSharingCapturer* capture = [[RNOpenTokScreenSharingCapturer alloc]
-                                                       initWithView:screenCaptureView
-                                                       withSettings:_screenCaptureSettings];
-
-            [_publisher setVideoType:OTPublisherKitVideoTypeScreen];
-            [_publisher setAudioFallbackEnabled:NO];
-            [_publisher setVideoCapture:capture];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"errorNoScreenCaptureView"
-             object:nil];
-            return;
-        }
-    } else {
-        _publisher.cameraPosition = AVCaptureDevicePositionFront;
-    }
-
 
     OTError *error = nil;
 

@@ -1,7 +1,3 @@
-
-#ifndef RNOpenTokScreenSharingCapturer_h
-#define RNOpenTokScreenSharingCapturer_h
-
 #import <Foundation/Foundation.h>
 #import <OpenTok/OpenTok.h>
 
@@ -22,6 +18,3 @@
                       drawRect:(CGRect*)destDrawReact;
 
 @end
-
-
-#endif /* RNOpenTokScreenSharingCapturer_h */

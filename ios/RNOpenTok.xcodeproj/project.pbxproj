@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6905E157EA5AB1057F7E68F1 /* RNDefaultPublisherFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6905EDC7A19ACDB8C517FD3D /* RNDefaultPublisherFactory.m */; };
+		6905E91F13D137116C1EAF74 /* RNDefaultCapturerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6905EE04AAE0D6B036B3AEB1 /* RNDefaultCapturerFactory.m */; };
+		6905EB853465BCCE31B192C7 /* RNOpentokPublisherConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6905ED700E74EB68B0E2C476 /* RNOpentokPublisherConfiguration.m */; };
+		6905EDB6CF4D4B399E265B76 /* RNOpenTokConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6905EAD89E8E06D9D4DB6EE1 /* RNOpenTokConfiguration.m */; };
 		FAC12F78205BC16B0093EE4F /* RNOpenTokEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC12F66205BC16A0093EE4F /* RNOpenTokEventEmitter.m */; };
 		FAC12F79205BC16B0093EE4F /* RNOpenTokPublisherViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC12F67205BC16A0093EE4F /* RNOpenTokPublisherViewManager.m */; };
 		FAC12F7A205BC16B0093EE4F /* RNOpenTokSubscriberView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC12F68205BC16A0093EE4F /* RNOpenTokSubscriberView.m */; };
@@ -31,6 +35,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6905E6C403A303FBB112A63C /* RNOpentokPublisherConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNOpentokPublisherConfiguration.h; sourceTree = "<group>"; };
+		6905E8ECF39664A2B92AEF2D /* RNPublisherFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNPublisherFactory.h; sourceTree = "<group>"; };
+		6905EA21591A2E3E19A9823E /* RNDefaultPublisherFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDefaultPublisherFactory.h; sourceTree = "<group>"; };
+		6905EA78EF1B6F3B6D87A5A7 /* RNCapturerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCapturerFactory.h; sourceTree = "<group>"; };
+		6905EA9977C2166A9BEA7568 /* RNDefaultCapturerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDefaultCapturerFactory.h; sourceTree = "<group>"; };
+		6905EAD89E8E06D9D4DB6EE1 /* RNOpenTokConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpenTokConfiguration.m; sourceTree = "<group>"; };
+		6905EC84D5713ECFDDB0715F /* RNOpenTokConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNOpenTokConfiguration.h; sourceTree = "<group>"; };
+		6905ED700E74EB68B0E2C476 /* RNOpentokPublisherConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpentokPublisherConfiguration.m; sourceTree = "<group>"; };
+		6905EDC7A19ACDB8C517FD3D /* RNDefaultPublisherFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDefaultPublisherFactory.m; sourceTree = "<group>"; };
+		6905EE04AAE0D6B036B3AEB1 /* RNDefaultCapturerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDefaultCapturerFactory.m; sourceTree = "<group>"; };
 		AD8A56611D3FAF1400683126 /* libRNOpenTok.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNOpenTok.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA10B56C205BC1F400380B84 /* OpenTok.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenTok.framework; path = "../OpenTok-iOS/OpenTok.framework"; sourceTree = "<group>"; };
 		FAC12F66205BC16A0093EE4F /* RNOpenTokEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNOpenTokEventEmitter.m; sourceTree = "<group>"; };
@@ -87,6 +101,16 @@
 				FAC12F76205BC16B0093EE4F /* RNOpenTokSubscriberViewManager.m */,
 				AD8A56621D3FAF1400683126 /* Products */,
 				FA18C1721DF3E62E0080BC0F /* Frameworks */,
+				6905EA78EF1B6F3B6D87A5A7 /* RNCapturerFactory.h */,
+				6905EA9977C2166A9BEA7568 /* RNDefaultCapturerFactory.h */,
+				6905EE04AAE0D6B036B3AEB1 /* RNDefaultCapturerFactory.m */,
+				6905EA21591A2E3E19A9823E /* RNDefaultPublisherFactory.h */,
+				6905EDC7A19ACDB8C517FD3D /* RNDefaultPublisherFactory.m */,
+				6905EC84D5713ECFDDB0715F /* RNOpenTokConfiguration.h */,
+				6905EAD89E8E06D9D4DB6EE1 /* RNOpenTokConfiguration.m */,
+				6905E6C403A303FBB112A63C /* RNOpentokPublisherConfiguration.h */,
+				6905ED700E74EB68B0E2C476 /* RNOpentokPublisherConfiguration.m */,
+				6905E8ECF39664A2B92AEF2D /* RNPublisherFactory.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +195,10 @@
 				FAC12F7B205BC16B0093EE4F /* RNOpenTokSessionObserver.m in Sources */,
 				FAC12F7A205BC16B0093EE4F /* RNOpenTokSubscriberView.m in Sources */,
 				FAC12F78205BC16B0093EE4F /* RNOpenTokEventEmitter.m in Sources */,
+				6905E91F13D137116C1EAF74 /* RNDefaultCapturerFactory.m in Sources */,
+				6905E157EA5AB1057F7E68F1 /* RNDefaultPublisherFactory.m in Sources */,
+				6905EDB6CF4D4B399E265B76 /* RNOpenTokConfiguration.m in Sources */,
+				6905EB853465BCCE31B192C7 /* RNOpentokPublisherConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,11 +287,6 @@
 		AD8A566B1D3FAF1400683126 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../OpenTok-iOS",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -273,11 +296,6 @@
 		AD8A566C1D3FAF1400683126 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../OpenTok-iOS",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

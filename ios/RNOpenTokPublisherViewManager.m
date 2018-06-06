@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "RNOpenTokPublisherViewManager.h"
 #import "RNOpenTokPublisherView.h"
+#import "RNDefaultPublisherFactory.h"
+#import "RNPublisherFactory.h"
+#import "RNOpenTokConfiguration.h"
 
 #if __has_include(<React/RCTBridge.h>)
 #import <React/RCTBridge.h>
@@ -10,9 +13,25 @@
 #import "React/RCTBridge.h"
 #endif
 
-@implementation RNOpenTokPublisherViewManager
+@implementation RNOpenTokPublisherViewManager {
+  id<RNPublisherFactory> pubFactory;
+}
+
 
 @synthesize bridge = _bridge;
+
+- (instancetype)initWithConfiguration:(nonnull RNOpenTokConfiguration *)configuration {
+    self = [super init];
+    if (self) {
+        pubFactory = [configuration fetchPublisherFactory];
+    }
+    return self;
+}
+
+- (instancetype)init {
+    RNOpenTokConfiguration *configuration = [[RNOpenTokConfiguration alloc] init];
+    return [self initWithConfiguration:configuration];
+}
 
 RCT_EXPORT_MODULE()
 
@@ -33,7 +52,8 @@ RCT_EXPORT_VIEW_PROPERTY(screenCapture, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(screenCaptureSettings, NSDictionary)
 
 - (UIView *)view {
-    return [[RNOpenTokPublisherView alloc] initWithUIManager:_bridge.uiManager];
+    return [[RNOpenTokPublisherView alloc] initWithUIManager:_bridge.uiManager
+                                            publisherFactory: pubFactory];
 }
 
 @end

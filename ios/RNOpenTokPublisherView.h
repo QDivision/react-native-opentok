@@ -11,6 +11,7 @@
 #endif
 
 @class RCTEventDispatcher;
+@protocol RNPublisherFactory;
 
 @interface RNOpenTokPublisherView : RNOpenTokSessionObserver
 
@@ -24,7 +25,7 @@
 /**
  * Define props which tells the Publisher which camera direction to use.
  */
-@property (nonatomic, assign) NSString *cameraDirection;
+@property (nonatomic, strong) NSString *cameraDirection;
 /**
  * Define props which tells the Publisher if should publish a video as well.
  */
@@ -33,7 +34,7 @@
 /**
  * Define whether the video should scale to fill the frame or fit into it.
  */
-@property (nonatomic, assign) NSString *videoScale;
+@property (nonatomic, strong) NSString *videoScale;
 
 /**
  * Define whether to capture screen or camera.
@@ -45,6 +46,7 @@
  */
 @property (nonatomic) NSDictionary* screenCaptureSettings;
 
-- (instancetype)initWithUIManager:(RCTUIManager*)uiManager;
+- (instancetype)initWithUIManager:(RCTUIManager*)uiManager
+                 publisherFactory:(id<RNPublisherFactory>)pubFactory ;
 
 @end
