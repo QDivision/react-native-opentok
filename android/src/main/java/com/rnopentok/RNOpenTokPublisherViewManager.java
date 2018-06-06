@@ -8,6 +8,11 @@ import com.facebook.react.bridge.ReadableMap;
 
 
 public class RNOpenTokPublisherViewManager extends RNOpenTokViewManager<RNOpenTokPublisherView> {
+    private final RNPublisherFactory rnPublisherFactory;
+    public RNOpenTokPublisherViewManager(RNPublisherFactory rnPublisherFactory) {
+        this.rnPublisherFactory = rnPublisherFactory;
+    }
+
     @Override
     public String getName() {
         return "RNOpenTokPublisherView";
@@ -15,7 +20,7 @@ public class RNOpenTokPublisherViewManager extends RNOpenTokViewManager<RNOpenTo
 
     @Override
     protected RNOpenTokPublisherView createViewInstance(ThemedReactContext reactContext) {
-        return new RNOpenTokPublisherView(reactContext);
+        return new RNOpenTokPublisherView(reactContext, rnPublisherFactory);
     }
 
     @ReactProp(name = "mute")

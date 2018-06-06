@@ -23,14 +23,16 @@ public class RNOpenTokPublisherView extends RNOpenTokView implements PublisherKi
     private Boolean mScreenCapture;
     private CameraDirection mCameraDirection;
     private ReadableMap mScreenCaptureSettings;
+    private final RNPublisherFactory rnPublisherFactory;
 
     public enum CameraDirection {
         BACK,
         FRONT,
     };
 
-    public RNOpenTokPublisherView(ThemedReactContext context) {
+    public RNOpenTokPublisherView(ThemedReactContext context, RNPublisherFactory rnPublisherFactory) {
         super(context);
+        this.rnPublisherFactory = rnPublisherFactory;
     }
 
     @Override
@@ -118,27 +120,21 @@ public class RNOpenTokPublisherView extends RNOpenTokView implements PublisherKi
     }
 
     private void startPublishing() {
-        Publisher.Builder builder = new Publisher.Builder(getContext());
-        builder.renderer(getVideoRenderer());
-
-        if (mScreenCapture) {
-            View captureView = ReactFindViewUtil.findView(this.getRootView(), "RN_OPENTOK_SCREEN_CAPTURE_VIEW");
-            if (captureView == null) {
+        try {
+            mPublisher = rnPublisherFactory.fetchPublisher(new RNOpentokPublisherConfiguration(
+                    mScreenCapture,
+                    getContext(),
+                    getVideoRenderer(),
+                    mAudioEnabled,
+                    mVideoEnabled,
+                    mScreenCaptureSettings,
+                    this.getRootView(),
+                    this
+            ));
+        } catch (RNPublisherUncreatable rnPublisherUncreatable) {
                 sendEvent(Events.ERROR_NO_SCREEN_CAPTURE_VIEW, null);
                 return;
             }
-            builder.capturer(new RNOpenTokScreenSharingCapturer(captureView, mScreenCaptureSettings));
-        }
-
-        mPublisher = builder.build();
-        mPublisher.setPublisherListener(this);
-        mPublisher.setPublishAudio(mAudioEnabled);
-        mPublisher.setPublishVideo(mVideoEnabled);
-
-        if (mScreenCapture) {
-            mPublisher.setPublisherVideoType(PublisherKit.PublisherKitVideoType.PublisherKitVideoTypeScreen);
-            mPublisher.setAudioFallbackEnabled(false);
-        }
 
         if (mCameraDirection != null) {
             updateCameraDirection();
