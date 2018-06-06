@@ -128,41 +128,62 @@
 
 - (void)observeStream {
     [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(onStreamCreated:)
-     name:[@"stream-created:" stringByAppendingString:_sessionId]
-     object:nil];
+            addObserver:self
+               selector:@selector(onStreamCreated:)
+                   name:[@"stream-created:" stringByAppendingString:_sessionId]
+                 object:nil];
+    [[NSNotificationCenter defaultCenter]
+            addObserver:self
+               selector:@selector(onStreamDestroyed:)
+                   name:@"onSessionStreamDestroyed"
+                 object:nil];
+}
+
+-(void) onStreamDestroyed:(NSNotification *)notification {
+    NSString * sessionId = notification.userInfo[@"sessionId"];
+    NSString * streamId = notification.userInfo[@"streamId"];
+    OTStream *stream = [_subscriber stream];
+    if(_subscriber != nil &&
+            [[stream streamId] isEqualToString:streamId] &&
+            [[[stream session] sessionId] isEqualToString:sessionId]){
+        [self subscriberDidDisconnectFromStream:_subscriber];
+    }
+
 }
 
 - (void)stopObserveStream {
     [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:[@"stream-created:" stringByAppendingString:_sessionId]
-     object:nil];
+            removeObserver:self
+                      name:[@"stream-created:" stringByAppendingString:_sessionId]
+                    object:nil];
+    [[NSNotificationCenter defaultCenter]
+            removeObserver:self
+                      name:@"onSessionStreamDestroyed"
+                    object:nil];
 }
 
 #pragma mark - OTSubscriber delegate callbacks
 
 - (void)subscriber:(OTSubscriberKit*)subscriber didFailWithError:(OTError*)error {
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"onSubscribeError"
-     object:nil
-     userInfo:@{@"sessionId": _sessionId, @"error": [error description]}];
+            postNotificationName:@"onSubscribeError"
+                          object:nil
+                        userInfo:@{@"sessionId": _sessionId, @"error": [error description]}];
     [self cleanupSubscriber];
 }
 
 - (void)subscriberDidConnectToStream:(OTSubscriberKit*)subscriber {
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"onSubscribeStart"
-     object:nil
-     userInfo:@{@"sessionId": _sessionId}];
+            postNotificationName:@"onSubscribeStart"
+                          object:nil
+                        userInfo:@{@"sessionId": _sessionId}];
 }
 
 - (void)subscriberDidDisconnectFromStream:(OTSubscriberKit*)subscriber {
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"onSubscribeStop"
-     object:nil
-     userInfo:@{@"sessionId": _sessionId}];
+            postNotificationName:@"onSubscribeStop"
+                          object:nil
+                        userInfo:@{@"sessionId": _sessionId}];
     [self cleanupSubscriber];
 }
 
